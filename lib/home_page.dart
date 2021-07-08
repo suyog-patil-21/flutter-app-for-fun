@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.blueAccent,
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => TicTacToeHomePage()));
+                  builder: (BuildContext context) => IntroScreen()));
             }),
         const SizedBox(height: 10.0),
         ImageButton(
@@ -75,19 +75,19 @@ Widget ImageButton({
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      padding: EdgeInsets.zero,
-      height: 120.0,
-      width: double.infinity,
-      child: Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Text(
-              '$name',
-              style: TextStyle(color: Colors.white, fontSize: 20.0),
-            ),
-          )),
-      color: color,
-    ),
+        padding: EdgeInsets.zero,
+        height: 120.0,
+        width: double.infinity,
+        child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Text(
+                '$name',
+                style: TextStyle(color: Colors.white, fontSize: 20.0),
+              ),
+            )),
+        decoration: BoxDecoration(
+            color: color, borderRadius: BorderRadius.circular(10.0))),
   );
 }

@@ -3,6 +3,8 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TicTacToeHomePage extends StatefulWidget {
+  const TicTacToeHomePage({Key? key}) : super(key: key);
+
   @override
   _TicTacToeHomePageState createState() => _TicTacToeHomePageState();
 }
@@ -14,9 +16,9 @@ class _TicTacToeHomePageState extends State<TicTacToeHomePage> {
   List<String> displayXO = ['', '', '', '', '', '', '', '', ''];
   String chance = 'O';
   static var newFont = GoogleFonts.pressStart2p(
-      textStyle: TextStyle(color: Colors.black, letterSpacing: 3));
+      textStyle: const TextStyle(color: Colors.black, letterSpacing: 3));
   static var newFontWhite = GoogleFonts.pressStart2p(
-      textStyle: TextStyle(color: Colors.white, letterSpacing: 3));
+      textStyle: const TextStyle(color: Colors.white, letterSpacing: 3));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,115 +31,115 @@ class _TicTacToeHomePageState extends State<TicTacToeHomePage> {
           backgroundColor: Colors.black87,
         ),
         backgroundColor: Colors.black87,
-        body: Column(
-          children: <Widget>[
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Expanded(
-                      child: Text('ScoreBoard',
-                          textScaleFactor: 1.5, style: newFontWhite),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _clearboard();
-                          _playerScore[0] = 0;
-                          _playerScore[1] = 0;
-                        });
-                      },
-                      child: CircleAvatar(
-                          radius: 15.0,
-                          backgroundColor: Colors.white,
-                          child: Icon(
-                            Icons.refresh,
-                            size: 25.0,
-                          )),
-                    ),
+        body: LayoutBuilder(builder: (context, buildconstraint) {
+          return Column(
+            children: <Widget>[
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Expanded(
+                        child: Text('ScoreBoard',
+                            textScaleFactor: 1.5, style: newFontWhite),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _clearboard();
+                            _playerScore[0] = 0;
+                            _playerScore[1] = 0;
+                          });
+                        },
+                        child: const CircleAvatar(
+                            radius: 15.0,
+                            backgroundColor: Colors.white,
+                            child: Icon(
+                              Icons.refresh_rounded,
+                              color: Colors.black87,
+                              size: 25.0,
+                            )),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8.0),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Table(
+                  defaultColumnWidth: const FlexColumnWidth(2.0),
+                  border: TableBorder.all(color: Colors.white, width: 1.0),
+                  children: [
+                    TableRow(children: <Widget>[
+                      Center(
+                        child: Text('Player O',
+                            textScaleFactor: 1.2, style: newFontWhite),
+                      ),
+                      Center(
+                          child: Text(
+                        'Player X',
+                        textScaleFactor: 1.2,
+                        style: newFontWhite,
+                      ))
+                    ]),
+                    TableRow(children: <Widget>[
+                      Center(
+                        child: Text(_playerScore[0].toString(),
+                            textScaleFactor: 2, style: newFontWhite),
+                      ),
+                      Center(
+                        child: Text(_playerScore[1].toString(),
+                            textScaleFactor: 2, style: newFontWhite),
+                      )
+                    ])
                   ],
                 ),
               ),
-            ),
-            SizedBox(height: 8.0),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Table(
-                defaultColumnWidth: FlexColumnWidth(2.0),
-                border: TableBorder.all(color: Colors.white, width: 1.0),
-                children: [
-                  TableRow(children: <Widget>[
-                    Center(
-                      child: Text('Player O',
-                          textScaleFactor: 1.2, style: newFontWhite),
-                    ),
-                    Center(
-                        child: Text(
-                      'Player X',
-                      textScaleFactor: 1.2,
-                      style: newFontWhite,
-                    ))
-                  ]),
-                  TableRow(children: <Widget>[
-                    Center(
-                      child: Text(_playerScore[0].toString(),
-                          textScaleFactor: 2, style: newFontWhite),
-                    ),
-                    Center(
-                      child: Text(_playerScore[1].toString(),
-                          textScaleFactor: 2, style: newFontWhite),
-                    )
-                  ])
-                ],
+              const SizedBox(height: 10.0),
+              Text(
+                'Play ' + chance,
+                style: newFontWhite,
+                textScaleFactor: 1.5,
               ),
-            ),
-            SizedBox(height: 10.0),
-            Text(
-              'Play ' + chance,
-              style: newFontWhite,
-              textScaleFactor: 1.5,
-            ),
-            SizedBox(height: 10.0),
-            Expanded(
-              flex: 2,
-              child: GridView.builder(
-                itemCount: 9,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3),
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      _tapped(index);
-                    },
-                    child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey.shade700)),
-                        child: Center(
-                            child: Text(displayXO[index],
-                                textScaleFactor: 3, style: newFontWhite))),
-                  );
-                },
+              const SizedBox(height: 10.0),
+              Expanded(
+                flex: 2,
+                child: GridView.builder(
+                  itemCount: 9,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3),
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        _tapped(index);
+                      },
+                      child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey.shade700)),
+                          child: Center(
+                              child: Text(displayXO[index],
+                                  textScaleFactor: 3, style: newFontWhite))),
+                    );
+                  },
+                ),
               ),
-            ),
-            Container(
-              child: Text('Tic Tac Toe',
-                  textScaleFactor: 1.6, style: newFontWhite),
-            ),
-            SizedBox(height: 8.0),
-            Center(
-              child: Container(
-                padding: EdgeInsets.only(bottom: 20.0, top: 30.0),
-                child: Text('@CreatedBy:Suyog',
-                    style: GoogleFonts.pressStart2p(
-                        color: Colors.white,
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold)),
+              Text('Tic Tac Toe', textScaleFactor: 1.6, style: newFontWhite),
+              const SizedBox(height: 8.0),
+              Center(
+                child: Container(
+                  padding: const EdgeInsets.only(bottom: 20.0, top: 30.0),
+                  child: Text('@CreatedBy:Suyog',
+                      style: GoogleFonts.pressStart2p(
+                          color: Colors.white,
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold)),
+                ),
               ),
-            ),
-          ],
-        ));
+            ],
+          );
+        }));
   }
 
   void _tapped(int idx) {
@@ -207,8 +209,8 @@ class _TicTacToeHomePageState extends State<TicTacToeHomePage> {
             return AlertDialog(
               title: Text(' It was DRAW', style: newFont),
               actions: <Widget>[
-                FlatButton(
-                    onPressed: () {
+                GestureDetector(
+                    onTap: () {
                       setState(() {
                         _clearboard();
                         Navigator.of(context).pop();
@@ -235,8 +237,8 @@ class _TicTacToeHomePageState extends State<TicTacToeHomePage> {
           return AlertDialog(
             title: Text(winplayer + ' Player wins', style: newFont),
             actions: <Widget>[
-              FlatButton(
-                  onPressed: () {
+              GestureDetector(
+                  onTap: () {
                     setState(() {
                       _clearboard();
                       Navigator.of(context).pop();
@@ -257,6 +259,8 @@ class _TicTacToeHomePageState extends State<TicTacToeHomePage> {
 }
 
 class IntroScreen extends StatefulWidget {
+  const IntroScreen({Key? key}) : super(key: key);
+
   @override
   _IntroScreenState createState() => _IntroScreenState();
 }
@@ -265,11 +269,20 @@ class _IntroScreenState extends State<IntroScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Tic Tac Toe',
+            style: GoogleFonts.pressStart2p(
+              color: Colors.white,
+            )),
+        centerTitle: true,
+        backgroundColor: Colors.black87,
+      ),
+      backgroundColor: Colors.black87,
       body: Column(
         children: <Widget>[
           Center(
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 30.0),
+              padding: const EdgeInsets.symmetric(vertical: 30.0),
               child: Text('Tic Tac Toe',
                   style: GoogleFonts.pressStart2p(
                       color: Colors.white,
@@ -280,18 +293,17 @@ class _IntroScreenState extends State<IntroScreen> {
           Expanded(
               child: AvatarGlow(
                   glowColor: Colors.white,
-                  duration: Duration(seconds: 2),
-                  child: Container(
-                      child: CircleAvatar(
+                  duration: const Duration(seconds: 2),
+                  child: CircleAvatar(
                     radius: 50.0,
                     backgroundColor: Colors.white,
                     child: Container(
                         decoration: BoxDecoration(),
                         child: Image.asset(
-                          'assets/images/tic.png',
+                          'assets/images/tic_tac_toe/tic.png',
                           fit: BoxFit.scaleDown,
                         )),
-                  )),
+                  ),
                   endRadius: 140.0)),
           Center(
             child: Container(
@@ -314,7 +326,7 @@ class _IntroScreenState extends State<IntroScreen> {
                     borderRadius: BorderRadius.circular(20.0),
                     child: Container(
                         color: Colors.white,
-                        padding: EdgeInsets.all(30.0),
+                        padding: const EdgeInsets.all(30.0),
                         child: Text('Play Again',
                             style: GoogleFonts.pressStart2p(
                                 color: Colors.black,

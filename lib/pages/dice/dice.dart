@@ -5,7 +5,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 // * globle variable
 // * random change the value
 
-//* FIXME :PageView Not Working
+//! PageView don't working in linux
 var leftpress = 1;
 var rightpress = 1;
 
@@ -48,13 +48,10 @@ class MyPageView extends StatefulWidget {
 class _MyPageViewState extends State<MyPageView> {
   @override
   Widget build(BuildContext context) {
-    PageController pageController = PageController(initialPage: 0);
     return PageView(
-      scrollDirection: Axis.horizontal,
-      controller: pageController,
       children: <Widget>[
-        DoubleDicePage(),
         SingleDicePage(),
+        DoubleDicePage(),
       ],
     );
   }
@@ -119,32 +116,28 @@ class _DoubleDicePageState extends State<DoubleDicePage> {
           Container(
               child: Expanded(
             flex: 1,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Expanded(
-                  child: GestureDetector(
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _changeData();
+                });
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Expanded(
                     child:
                         Image.asset('assets/images/dices/dice$leftpress.png'),
-                    onTap: () {
-                      setState(() {
-                        _changeData();
-                      });
-                    },
                   ),
-                ),
-                Expanded(
-                  child: GestureDetector(
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  Expanded(
                     child:
                         Image.asset('assets/images/dices/dice$rightpress.png'),
-                    onTap: () {
-                      setState(() {
-                        _changeData();
-                      });
-                    },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           )),
           helpshuffle,
